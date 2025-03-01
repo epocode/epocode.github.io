@@ -1,19 +1,24 @@
-# 我的GitHub主页
+# test
 
-这是我的GitHub个人主页，展示了我的项目和关于我的信息。
+## Project setup
+```
+npm install
+```
 
-## 文件结构
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-- `index.html` - 包含Vue应用的HTML文件
-- `main.js` - Vue应用的入口文件
-- `App.vue` - Vue应用的主组件
-- `README.md` - 项目说明文件
+### Compiles and minifies for production
+```
+npm run build
+```
 
-## 如何运行
+### Lints and fixes files
+```
+npm run lint
+```
 
-1. 克隆仓库到本地：
-    ```bash
-    git clone https://github.com/你的用户名/epocode.github.io.git
-    ```
-
-2. 打开`index.html`文件查看主页。
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
