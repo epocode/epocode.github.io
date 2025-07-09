@@ -1,0 +1,34 @@
+/* 主页所有文章页面背景 */
+#aside_content .card-widget,
+
+#recent-posts>.recent-post-item,
+.layout_page>div:first-child:not(.recent-posts),
+.layout_post>#page,
+.layout_post>#post,
+.read-mode .layout_post>#post {
+	/* 以下代表透明度为0.5 */
+	background: rgba(255, 255, 255, .5);
+}
+
+/*侧边栏页面*/
+/*白天主题下的配置*/
+#aside-content>.card-widget.card-info {
+    /*换成自己图片的地址*/
+    background-image: url('/img/mybg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: inherit;
+    background-size: 100%
+}
+/*黑暗主题下的配置*/
+//[data-theme=dark] #aside-content>.card-widget.card-info {
+//    /*换成自己图片的地址*/
+//    background-image: url('/img/mybg.png') !important
+//}
+#aside-content>.sticky_layout>.card-widget {
+	background: rgba(255, 255, 255, .6);
+}
+
+/*文章页面*/
+.layout>#post {
+	background: rgba(255, 255, 255, .6);
+}
