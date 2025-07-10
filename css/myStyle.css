@@ -1,34 +1,113 @@
-/* 主页所有文章页面背景 */
-#aside_content .card-widget,
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
 
-#recent-posts>.recent-post-item,
-.layout_page>div:first-child:not(.recent-posts),
-.layout_post>#page,
-.layout_post>#post,
-.read-mode .layout_post>#post {
+/* 主页所有文章页面背景 */
+#recent-posts .recent-post-item {
 	/* 以下代表透明度为0.5 */
 	background: rgba(255, 255, 255, .5);
 }
+
+/* 个人信息Follow me按钮 */
+#aside-content>.card-widget.card-info>#card-info-btn {
+	background-color: rgba(110, 150, 180, .4);
+	border-radius: 8px;
+}
+
 
 /*侧边栏页面*/
 /*白天主题下的配置*/
 #aside-content>.card-widget.card-info {
     /*换成自己图片的地址*/
-    background-image: url('/img/mybg.jpg');
+    background-image: url('/img/amybg.jpg');
     background-repeat: no-repeat;
     background-attachment: inherit;
-    background-size: 100%
+    background-size: 200%
 }
 /*黑暗主题下的配置*/
 //[data-theme=dark] #aside-content>.card-widget.card-info {
 //    /*换成自己图片的地址*/
 //    background-image: url('/img/mybg.png') !important
 //}
+
+/*资料卡*/
+#aside-content>.card-widget {
+	background: rgba(0, 255, 255, .1);
+}
+/*资料卡以外的卡片*/
 #aside-content>.sticky_layout>.card-widget {
-	background: rgba(255, 255, 255, .6);
+	background: rgba(0, 200, 220, .8);
+}
+[data-theme=dark] #aside-content>.sticky_layout>.card-widget {
+	background: rgba(100, 120, 180, .8);
 }
 
-/*文章页面*/
+/*post页面*/
 .layout>#post {
-	background: rgba(255, 255, 255, .6);
+	background: rgba(255, 255, 255, .8);
+}
+[data-theme=dark] .layout>#post{
+    background: rgba(25,25,25,.8);
+}
+
+/*page页面*/
+.layout>#page {
+	//background: rgba(255, 255, 255, .6);
+  background: linear-gradient(-45deg, rgba(80, 200, 200, .6), rgba(110, 150, 180, .6), rgba(170, 150, 200, .6));
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+/*归档页面*/
+.layout>#archive {
+	//background: rgba(255, 255, 255, .6);
+	background: linear-gradient(-45deg, rgba(80, 200, 200, .6), rgba(110, 150, 180, .6), rgba(170, 150, 200, .6), rgba(80, 200, 200, .6));
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+
+/*字体*/
+@font-face {
+    /*字体名称，名字可以随便起，但是注意要一致，建议英文*/
+    font-family: 'kaiti';
+    font-display: swap;
+    src: url('/fonts/STKAITI.TTF') format("truetype");
+}
+@font-face {
+    /*字体名称，名字可以随便起，但是注意要一致，建议英文*/
+    font-family: 'newtimes';
+    font-display: swap;
+    src: url('/fonts/times.ttf') format("truetype");
+}
+@font-face {
+    /*字体名称，名字可以随便起，但是注意要一致，建议英文*/
+    font-family: 'newtimesb';
+    font-display: swap;
+    src: url('/fonts/timesbi.ttf') format("truetype");
+}
+#subtitle {
+   font-family: "newtimesb", sans-serif !important;
+}
+@font-face {
+font-family: "iconfont";
+src: url('//at.alicdn.com/t/c/font_3829267_g9vxomx6ua4.woff2') format('woff2'),
+url('//at.alicdn.com/t/c/font_3829267_g9vxomx6ua4.woff') format('woff'),
+url('//at.alicdn.com/t/c/font_3829267_g9vxomx6ua4.ttf') format('truetype');
+}
+iconfont {
+font-family: "iconfont" !important;
+font-size: 16px;
+font-style: normal;
+}
+icon-home:before {
+content: "\e600";
 }

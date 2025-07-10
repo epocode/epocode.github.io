@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Linphone Young's Blog | Linphone Young's Blog</title><meta name="author" content="YLF"><meta name="copyright" content="YLF"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Live2D API Live2D 看板娘插件 (https:&#x2F;&#x2F;www.fghrsh.net&#x2F;post&#x2F;123.html) 上使用的后端 API 特性  原生 PHP 开发，无需伪静态，开箱即用 支持 模型、皮肤 的 顺序切换 和 随机切换 支持 单模型 单皮肤 切换、多组皮肤 递归穷举 支持 同分组 多个模型 或 多个路径 的 加载切换  使用 环境要求  PHP 版本 &gt;&#x3D; 5.2 依">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Linphone Young&#39;s Blog">
+<meta property="og:url" content="https://linphone-young.github.io/live2d-api/README.html">
+<meta property="og:site_name" content="Linphone Young&#39;s Blog">
+<meta property="og:description" content="Live2D API Live2D 看板娘插件 (https:&#x2F;&#x2F;www.fghrsh.net&#x2F;post&#x2F;123.html) 上使用的后端 API 特性  原生 PHP 开发，无需伪静态，开箱即用 支持 模型、皮肤 的 顺序切换 和 随机切换 支持 单模型 单皮肤 切换、多组皮肤 递归穷举 支持 同分组 多个模型 或 多个路径 的 加载切换  使用 环境要求  PHP 版本 &gt;&#x3D; 5.2 依">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://linphone-young.github.io/img/icon.jpg">
+<meta property="article:published_time" content="2025-07-10T03:07:32.694Z">
+<meta property="article:modified_time" content="2022-07-03T15:21:52.000Z">
+<meta property="article:author" content="YLF">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://linphone-young.github.io/img/icon.jpg"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/icon.jpg"><link rel="canonical" href="https://linphone-young.github.io/live2d-api/README.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Linphone Young\'s Blog',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'page'
+}</script><link rel="stylesheet" href="/css/myStyle.css"><script src="/live2d-widget/dist/autoload.js"></script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/bg.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/icon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/introduction"><i class="fa-fw fas fa-smile"></i><span> 简介</span></a></div><div class="menus_item"><a class="site-page" href="/projects"><i class="fa-fw fas fa-folder"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-list"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/frlink"><i class="fa-fw fas fa-paperclip"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about"><i class="fa-fw fas fa-quote-right"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header" style="background: transparent;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Linphone Young's Blog</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/introduction"><i class="fa-fw fas fa-smile"></i><span> 简介</span></a></div><div class="menus_item"><a class="site-page" href="/projects"><i class="fa-fw fas fa-folder"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-list"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/frlink"><i class="fa-fw fas fa-paperclip"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about"><i class="fa-fw fas fa-quote-right"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title"></h1></div></header><main class="layout" id="content-inner"><div id="page"><div class="container" id="article-container"><h1>Live2D API</h1>
+<p>Live2D 看板娘插件 (<a target="_blank" rel="noopener" href="https://www.fghrsh.net/post/123.html">https://www.fghrsh.net/post/123.html</a>) 上使用的后端 API</p>
+<h3 id="特性">特性</h3>
+<ul>
+<li>原生 PHP 开发，无需伪静态，开箱即用</li>
+<li>支持 模型、皮肤 的 顺序切换 和 随机切换</li>
+<li>支持 单模型 单皮肤 切换、多组皮肤 递归穷举</li>
+<li>支持 同分组 多个模型 或 多个路径 的 加载切换</li>
+</ul>
+<h2 id="使用">使用</h2>
+<h3 id="环境要求">环境要求</h3>
+<ul>
+<li>PHP 版本 &gt;= 5.2</li>
+<li>依赖 PHP 扩展：json</li>
+</ul>
+<h3 id="目录结构">目录结构</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">│  model_list.json              // 模型列表</span><br><span class="line">│</span><br><span class="line">├─model                         // 模型路径</span><br><span class="line">│  └─GroupName                  // 模组分组</span><br><span class="line">│      └─ModelName              // 模型名称</span><br><span class="line">│</span><br><span class="line">├─add                           // 更新皮肤列表</span><br><span class="line">├─get                           // 获取模型配置</span><br><span class="line">├─rand                          // 随机切换模型</span><br><span class="line">├─rand_textures                 // 随机切换皮肤</span><br><span class="line">├─switch                        // 顺序切换模型</span><br><span class="line">├─switch_textures               // 顺序切换皮肤</span><br><span class="line">└─tools</span><br><span class="line">        modelList.php           // 列出模型列表</span><br><span class="line">        modelTextures.php       // 列出皮肤列表</span><br><span class="line">        name-to-lower.php       // 文件名格式化</span><br></pre></td></tr></table></figure>
+<h3 id="添加模型">添加模型</h3>
+<ul>
+<li>单模型 单皮肤 切换
+<ul>
+<li>单次加载只输出一个皮肤</li>
+<li>皮肤放在 <code>textures</code> 文件夹，自动识别</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">│  index.json</span><br><span class="line">│  model.moc</span><br><span class="line">│  textures.cache       // 皮肤列表缓存，自动生成</span><br><span class="line">│</span><br><span class="line">├─motions</span><br><span class="line">│      idle_01.mtn</span><br><span class="line">│      idle_02.mtn</span><br><span class="line">│      idle_03.mtn</span><br><span class="line">│</span><br><span class="line">└─textures</span><br><span class="line">        default-costume.png</span><br><span class="line">        school-costume.png</span><br><span class="line">        winter-costume.png</span><br></pre></td></tr></table></figure>
+<ul>
+<li>单模型 多组皮肤 递归穷举
+<ul>
+<li>多组皮肤 组合模型、穷举组合</li>
+<li>皮肤文件夹按 <code>texture_XX</code> 命名</li>
+<li>添加 <code>textures_order.json</code> 列出组合</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">│  index.json</span><br><span class="line">│  model.moc</span><br><span class="line">│  textures.cache</span><br><span class="line">│  textures_order.json</span><br><span class="line">│</span><br><span class="line">├─motions</span><br><span class="line">│      idle_01.mtn</span><br><span class="line">│      idle_02.mtn</span><br><span class="line">│      idle_03.mtn</span><br><span class="line">│</span><br><span class="line">├─texture_00</span><br><span class="line">│      00.png</span><br><span class="line">│</span><br><span class="line">├─texture_01</span><br><span class="line">│      00.png</span><br><span class="line">│      01.png</span><br><span class="line">│      02.png</span><br><span class="line">│</span><br><span class="line">├─texture_02</span><br><span class="line">│      00.png</span><br><span class="line">│      01.png</span><br><span class="line">│      02.png</span><br><span class="line">│</span><br><span class="line">└─texture_03</span><br><span class="line">       00.png</span><br><span class="line">       01.png</span><br></pre></td></tr></table></figure>
+<p>textures_order.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">[</span><span class="string">&quot;texture_00&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span><span class="string">&quot;texture_01&quot;</span><span class="punctuation">,</span><span class="string">&quot;texture_02&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span><span class="string">&quot;texture_03&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+<p>textures.cache</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">[</span><span class="string">&quot;texture_00/00.png&quot;</span><span class="punctuation">,</span><span class="string">&quot;texture_01/00.png&quot;</span><span class="punctuation">,</span><span class="string">&quot;texture_02/00.png&quot;</span><span class="punctuation">,</span><span class="string">&quot;texture_03/00.png&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span><span class="string">&quot;texture_00/00.png&quot;</span><span class="punctuation">,</span><span class="string">&quot;texture_01/00.png&quot;</span><span class="punctuation">,</span><span class="string">&quot;texture_02/00.png&quot;</span><span class="punctuation">,</span><span class="string">&quot;texture_03/01.png&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span><span class="string">&quot;texture_00/00.png&quot;</span><span class="punctuation">,</span><span class="string">&quot;texture_01/01.png&quot;</span><span class="punctuation">,</span><span class="string">&quot;texture_02/01.png&quot;</span><span class="punctuation">,</span><span class="string">&quot;texture_03/00.png&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span><span class="string">&quot;texture_00/00.png&quot;</span><span class="punctuation">,</span><span class="string">&quot;texture_01/01.png&quot;</span><span class="punctuation">,</span><span class="string">&quot;texture_02/01.png&quot;</span><span class="punctuation">,</span><span class="string">&quot;texture_03/01.png&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span><span class="string">&quot;texture_00/00.png&quot;</span><span class="punctuation">,</span><span class="string">&quot;texture_01/02.png&quot;</span><span class="punctuation">,</span><span class="string">&quot;texture_02/02.png&quot;</span><span class="punctuation">,</span><span class="string">&quot;texture_03/00.png&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span><span class="string">&quot;texture_00/00.png&quot;</span><span class="punctuation">,</span><span class="string">&quot;texture_01/02.png&quot;</span><span class="punctuation">,</span><span class="string">&quot;texture_02/02.png&quot;</span><span class="punctuation">,</span><span class="string">&quot;texture_03/01.png&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>同分组 多个模型 或 多个路径 切换
+<ul>
+<li>修改 <code>model_list.json</code> 添加多个模型</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">│</span><br><span class="line">├─model</span><br><span class="line">│  ├─Group1</span><br><span class="line">│  │  ├─Model1</span><br><span class="line">│  │  │      index.json</span><br><span class="line">│  │  │</span><br><span class="line">│  │  └─Model2</span><br><span class="line">│  │          index.json</span><br><span class="line">│  │</span><br><span class="line">│  ├─Group2</span><br><span class="line">│  │  └─Model1</span><br><span class="line">│  │          index.json</span><br><span class="line">│  │</span><br><span class="line">│  └─GroupName</span><br><span class="line">│     └─ModelName</span><br><span class="line">│          │  index.json</span><br><span class="line">│          │  model.moc</span><br><span class="line">│          │</span><br><span class="line">│          ├─motions</span><br><span class="line">│          └─textures</span><br><span class="line">│</span><br></pre></td></tr></table></figure>
+<p>model_list.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;models&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;GroupName/ModelName&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">[</span></span><br><span class="line">            <span class="string">&quot;Group1/Model1&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;Group1/Model2&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;Group2/Model1&quot;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;messages&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;Example 1&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;Example 2&quot;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="接口用法">接口用法</h3>
+<ul>
+<li><code>/add/</code> - 检测 新增皮肤 并更新 缓存列表</li>
+<li><code>/get/?id=1-23</code> 获取 分组 1 的 第 23 号 皮肤</li>
+<li><code>/rand/?id=1</code> 根据 上一分组 随机切换</li>
+<li><code>/switch/?id=1</code> 根据 上一分组 顺序切换</li>
+<li><code>/rand_textures/?id=1-23</code> 根据 上一皮肤 随机切换 同分组其他皮肤</li>
+<li><code>/switch_textures/?id=1-23</code> 根据 上一皮肤 顺序切换 同分组其他皮肤</li>
+</ul>
+<h2 id="版权声明">版权声明</h2>
+<blockquote>
+<p>(&gt;▽&lt;) 都看到这了，点个 Star 吧 ~</p>
+</blockquote>
+<p><strong>API 内所有模型 版权均属于原作者，仅供研究学习，不得用于商业用途</strong></p>
+<p>MIT © FGHRSH</p>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/icon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">YLF</div><div class="author-info-description">Hero</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/linphone-young/"><i class="fab fa-github"></i><span>Github主页</span></a></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/14373.html" title="Test">Test</a><time datetime="2025-07-08T05:57:08.000Z" title="发表于 2025-07-08 13:57:08">2025-07-08</time></div></div></div></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">2</div></div><div class="webinfo-item"><div class="item-name">运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2025-07-08T04:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-07-10T05:28:59.704Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By YLF</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script></div><canvas id="star-canvas"></canvas><script src="/js/star-canvas.js"></script><script id="canvas_nest" defer="defer" color="150,120,190" opacity="0.7" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
