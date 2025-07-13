@@ -338,6 +338,7 @@ class LAppModel extends L2DBaseModel {
 
       const snd = document.createElement('audio');
       snd.src = this.modelHomeDir + soundName;
+      snd.volume = 0.3; // 设置音量为30%
 
       logger.trace('Start sound : ' + soundName);
 
