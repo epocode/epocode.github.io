@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Linphone Young's Blog
+title: Xiong Hongquan's Blog
 subtitle: ''
 description: 'Hero'
 keywords:
@@ -13,7 +13,7 @@ timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://linphone-young.github.io
+url: https://epocode.github.io
 #permalink: :year/:month/:day/:title/
 permalink: posts/:abbrlink.html
 permalink_defaults:
@@ -103,5 +103,5 @@ theme: butterfly
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repository: git@github.com:linphone-young/linphone-young.github.io.git
+  repository: https://github.com/epocode/epocode.github.io.git
   branch: main
