@@ -31,9 +31,9 @@ date: 2025-07-08 16:59:51
         <h1>友情赞助</h1>
     </div>
     <div class="user-container">
-        <div class="avatar"  style="background-image: url('https://avatars.githubusercontent.com/u/127788103?v=4');"></div>
+        <div class="avatar"  style="background-image: url('https://avatars.githubusercontent.com/u/97905783?v=4');"></div>
         <div>
-            <a  class="nickname" href="https://github.com/epocode">epocode</a>
+            <a  class="nickname" href="https://github.com/linphone-young">ylf</a>
         </div>
     </div>
     <div class="user-container">

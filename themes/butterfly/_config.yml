@@ -169,7 +169,7 @@ subtitle:
   source: false
   # If you close the typewriter effect, the subtitle will only show the first line of sub
   sub:
-    - Life is complex – it has both real and imaginary parts.
+    - 壮志饥餐胡虏肉，笑谈渴饮匈奴血。
 
 # Article layout on the homepage
 # 1: Cover on the left, info on the right
@@ -294,7 +294,7 @@ aside:
       enable: true
       icon: fab fa-github
       text: Github主页
-      link: https://github.com/linphone-young/
+      link: https://github.com/epocode/
   card_announcement:
     enable: false
     content: This is my Blog
