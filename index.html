@@ -80,8 +80,22 @@
 
                 <!-- 管理页 -->
                 <section id="manage" class="page">
-                    <h1 class="page-title">⚙️ 分类管理</h1>
-                    <div class="manage-container">
+                    <!-- 登录界面 -->
+                    <div id="manageLogin" class="manage-login-container" style="display: none;">
+                        <div class="manage-login-box">
+                            <h1 class="page-title">🔐 管理登录</h1>
+                            <p class="login-description">请输入密码以访问管理界面</p>
+                            <div class="login-form">
+                                <input type="password" id="managePassword" class="form-input" placeholder="输入管理密码..." autocomplete="off">
+                                <div id="loginError" class="login-error" style="display: none;"></div>
+                                <button class="btn btn-primary" onclick="attemptLogin()">登录</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 管理内容 -->
+                    <div id="manageContent" style="display: none;">
+                        <h1 class="page-title">⚙️ 分类管理</h1>
+                        <div class="manage-container">
                         <!-- 创建分类 -->
                         <div class="manage-section">
                             <h2>创建新分类</h2>
@@ -113,6 +127,7 @@
                                 <button class="btn btn-danger" onclick="clearCategories()">清空所有分类</button>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </section>
             </div>

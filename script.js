@@ -50,7 +50,7 @@ function showPage(pageName) {
     } else if (pageName === 'about') {
         loadAboutPage();
     } else if (pageName === 'manage') {
-        renderManagePage();
+        handleManagePageAccess();
     }
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -592,6 +592,84 @@ function setPostCategory(postId, category) {
     renderCategories();
 }
 
+// ========== 管理页面登录验证 ==========
+const MANAGE_PASSWORD_KEY = 'manage_password';
+const MANAGE_SESSION_KEY = 'manage_session';
+
+// 管理密码（请修改为你的密码）
+// 注意：这只是前端验证，不能提供真正的安全保护
+const ADMIN_PASSWORD = 'admin123'; // 请修改为你自己的密码
+
+// 检查是否已登录
+function isManageLoggedIn() {
+    const session = sessionStorage.getItem(MANAGE_SESSION_KEY);
+    return session === 'authenticated';
+}
+
+// 设置登录状态
+function setManageLoggedIn() {
+    sessionStorage.setItem(MANAGE_SESSION_KEY, 'authenticated');
+}
+
+// 清除登录状态
+function clearManageLogin() {
+    sessionStorage.removeItem(MANAGE_SESSION_KEY);
+}
+
+// 尝试登录
+function attemptLogin() {
+    const passwordInput = document.getElementById('managePassword');
+    const password = passwordInput.value;
+    const errorDiv = document.getElementById('loginError');
+    
+    if (password === ADMIN_PASSWORD) {
+        setManageLoggedIn();
+        showManagePage();
+        passwordInput.value = '';
+        errorDiv.style.display = 'none';
+    } else {
+        errorDiv.textContent = '密码错误，请重试';
+        errorDiv.style.display = 'block';
+        passwordInput.value = '';
+        passwordInput.focus();
+    }
+}
+
+// 显示管理登录界面
+function showManageLogin() {
+    const loginDiv = document.getElementById('manageLogin');
+    const contentDiv = document.getElementById('manageContent');
+    
+    if (loginDiv) loginDiv.style.display = 'block';
+    if (contentDiv) contentDiv.style.display = 'none';
+    
+    // 聚焦到密码输入框
+    setTimeout(() => {
+        const passwordInput = document.getElementById('managePassword');
+        if (passwordInput) passwordInput.focus();
+    }, 100);
+}
+
+// 显示管理页面内容
+function showManagePage() {
+    const loginDiv = document.getElementById('manageLogin');
+    const contentDiv = document.getElementById('manageContent');
+    
+    if (loginDiv) loginDiv.style.display = 'none';
+    if (contentDiv) contentDiv.style.display = 'block';
+    
+    renderManagePage();
+}
+
+// 处理管理页面的访问
+function handleManagePageAccess() {
+    if (isManageLoggedIn()) {
+        showManagePage();
+    } else {
+        showManageLogin();
+    }
+}
+
 // ========== 管理页面 ==========
 function renderManagePage() {
     const categories = getCategories();
@@ -809,3 +887,16 @@ window.exportCategories = exportCategories;
 window.importCategories = importCategories;
 window.handleImportFile = handleImportFile;
 window.clearCategories = clearCategories;
+window.attemptLogin = attemptLogin;
+
+// 允许在密码输入框按Enter键登录
+document.addEventListener('DOMContentLoaded', () => {
+    const passwordInput = document.getElementById('managePassword');
+    if (passwordInput) {
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                attemptLogin();
+            }
+        });
+    }
+});
